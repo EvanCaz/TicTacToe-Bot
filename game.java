@@ -1,17 +1,18 @@
 import java.util.Scanner;
-
+import java.util.ArrayList;
 public class game {
     private static final int rows = 3;
     private static final int cols = 3;
     public static char board[][] = new char[rows][cols];
+    public static int[] pastMoves = new int[2];
 
     public static void main (String[] args) {
         game newGame = new game();
         Bot newBot = new Bot();
-        newBot.test();
         while(newGame.gameOver() != true){
             newGame.printBoard();
             newGame.getInput();
+            newBot.makeMove(board);
         }
         // prolly while loop until a winner is found, passing the board to a bot class for other move
     }
@@ -44,8 +45,10 @@ public class game {
         Scanner scnr = new Scanner(System.in);
         System.out.print("Enter x coordinate: ");
         int xCord = scnr.nextInt();
+        pastMoves[0] = xCord;
         System.out.print("Enter y coordinate: ");
         int yCord = scnr.nextInt();
+        pastMoves[1] = yCord;
         // System.out.println(xCord + " : " + yCord);
         updateBoard(xCord, yCord, 'x');
 

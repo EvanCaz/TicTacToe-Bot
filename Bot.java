@@ -4,7 +4,7 @@ public class Bot {
     private static int turnCnt = 0;
     private static boolean hasCenter = false;
     // private static int[][] lookup;
-    // private static int[] lastMove = new int[2];
+    private static int[] lastMove = new int[2];
     public static void main(String[] args) {
         // Bot myBot = new Bot();
     }
@@ -21,14 +21,14 @@ public class Bot {
                 int rndCol = values[rndIndex];
                 rndIndex = rnd.nextInt(values.length);
                 int rndRow = values[rndIndex];
-                // lastMove[0] = rndRow;
-                // lastMove[1] = rndCol;
+                lastMove[0] = rndRow;
+                lastMove[1] = rndCol;
                 System.out.println("player chose (1,1), choosing: (" + rndRow + "," + rndCol+ ")");    
                 board[rndRow][rndCol] = 'o';
                 hasCenter = true;
                 turnCnt++;
             }
-        } else if (turnCnt == 1) { // if he has the center, we are basically playing defense unles he screws up
+        } else if (turnCnt == 1) { 
                 int x = game.pastMoves[0];
                 int y = game.pastMoves[1];    
                 if(hasCenter == true){ // if they have the center, no matter where they place it we have to go to the oppsite, single case we dont have to check in our last move is there
@@ -39,13 +39,35 @@ public class Bot {
                     };
                     if (x >= 0 && x < 3 && y >= 0 && y < 3) {
                         int row = lookup[x][y];
-                        int col = 2 - y;  // Column inversion based on your specific mapping
-                        board[row][col] = 'o';
+                        int col = 2 - y;  //  inversion 
+                        System.out.println(board[row][col]); // before a spot is chosen
+                        if(row == 2 && col == 1){ 
+                            board[0][1] = 'o';
+                        } else {
+                            if(board[row][col] != 'o'){
+                                board[row][col] = 'o';
+                            } else { // if we have already blocked it, pick whatever
+                                if(lastMove[0] == 0){
+                                    board[0][1] = 'o';
+                                } else {
+                                    board[2][1] = 'o';
+                                }
+                            }
+                        }
                     }
-                } else {
-
+                    turnCnt++;
+                } else { // if bot has center
+                    /*
+                     *  if his second move allows him to win, block it. This case occurs when there are to 'x's in the same row or column, as we have the center piece
+                     *  otherwise we can win
+                     */
+                    // if()
+                    
                 }
-        }   
+        } else if (turnCnt > 1){
+            // if it is greater than one and no winners, i think we cant win and must just play defense
+            System.out.println("Test reach"); 
+        }
 
     }
 }

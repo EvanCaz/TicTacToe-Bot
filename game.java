@@ -1,5 +1,5 @@
 import java.util.Scanner;
-import java.util.ArrayList;
+
 public class game {
     private static final int rows = 3;
     private static final int cols = 3;

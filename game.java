@@ -6,26 +6,38 @@ public class game {
     private static final int spaces = 9;
     public static char board[] = new char[spaces];
     public static List<Integer> validMoves = new ArrayList<>(); // for random chose bot
-    static private int tied = 0;
+    static private int ties = 0;
+    static private boolean tied = false;
     static private int xWins = 0;
     static private int oWins = 0;
 
     public static void main (String[] args) {
-        game newGame = new game();
         Bot bot1 = new Bot();
         Bot bot2 = new Bot();
-        boolean game = false;
-        while(newGame.gameOver() == false){
-            newGame.printBoard();
-            // newGame.validMoves();
-            bot1.randomMove(newGame, 'x');
-            game = newGame.gameOver();
-            if(game == true){
-                break;
+        boolean game;
+        for(int i = 0; i < 1000; i++){
+            game newGame = new game();
+            game = false;
+            System.out.println();
+            while(game == false){
+                bot1.randomMove(newGame, 'x');
+                game = newGame.gameOver();
+                if(game == true){
+                    xWins++;
+                    break;
+                }
+                bot2.randomMove(newGame, 'o');
+                game = newGame.gameOver();
+                if(game == true){
+                    oWins++;
+                    break;
+                }
             }
-            bot2.randomMove(newGame, 'o');
+            System.out.println();
+            newGame.printBoard();
         }
-        System.out.println("There were " + xWins + " number of x wins and there were " + oWins + " number of x wins and there were " + tied + " ties.");
+        System.out.println();
+        System.out.println("There were " + xWins + " number of x wins and there were " + oWins + " and " + ties + " ties.");
         // prolly while loop until a winner is found, passing the board to a bot class for other move
     }
 
@@ -97,7 +109,7 @@ public class game {
         board[cord] = symbol;
     }
 
-    private boolean gameOver() {
+    private boolean gameOver() { 
         int[][] winningCombinations = {
             {0, 1, 2}, // Row 1
             {3, 4, 5}, // Row 2
@@ -108,33 +120,20 @@ public class game {
             {0, 4, 8}, // Diagonal from top-left to bottom-right
             {2, 4, 6}  // Diagonal from top-right to bottom-left
         };
-
-        char winner = '-';
+        
         for (int[] combination : winningCombinations) {
-            if (board[combination[0]] != '-' && 
-                board[combination[0]] == board[combination[1]] && 
-                board[combination[1]] == board[combination[2]]) {
-                winner = board[combination[0]];
-                break;
+            if (board[combination[0]] != '-' && board[combination[0]] == board[combination[1]] && board[combination[1]] == board[combination[2]]) {
+                return true;
             }
         }
-
-        if (winner == 'X') {
-            xWins++;
-            return true;
-        } else if (winner == 'O') {
-            oWins++;
-            return true;
-        }
-        
-        // Check for a tie condition (no winner and board is full)
         for (char cell : board) {
             if (cell == '-') {
                 return false; // Empty cell found, game is not over
-            }
+            } 
         }
-        
-        // If no winner and no empty cells, it's a tie
+        // System.out.println("TIED");
+        ties++;
+        xWins--;
         return true;
-    }
+    } 
 }

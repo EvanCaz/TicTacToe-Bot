@@ -15,10 +15,12 @@ public class game {
         Bot bot1 = new Bot();
         Bot bot2 = new Bot();
         boolean game;
-        for(int i = 0; i < 1000; i++){
+        long totalTime = 0;
+        for(int i = 0; i < 10; i++){
             game newGame = new game();
             game = false;
             System.out.println();
+            long startTime = System.currentTimeMillis();
             while(game == false){
                 bot1.randomMove(newGame, 'x');
                 game = newGame.gameOver();
@@ -33,11 +35,16 @@ public class game {
                     break;
                 }
             }
+            long endTime = System.currentTimeMillis();
+            long elapsed = endTime - startTime;
+            totalTime += elapsed;
             System.out.println();
             newGame.printBoard();
         }
+        double avgTime = (double) totalTime / 1000; // num games is first number
         System.out.println();
         System.out.println("There were " + xWins + " number of x wins and there were " + oWins + " and " + ties + " ties.");
+        System.out.println("Average time of " + avgTime + " miliseconds.");
         // prolly while loop until a winner is found, passing the board to a bot class for other move
     }
 

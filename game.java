@@ -15,7 +15,7 @@ public class game {
         // Bot bot2 = new Bot('o');
         boolean game;
         long totalTime = 0;
-        int numGames = 1000000;
+        int numGames = 2;
         System.out.println("Loading...");
         for(int i = 0; i < numGames; i++){
             Bot bot1 = new Bot('x');
@@ -24,15 +24,15 @@ public class game {
             game = false;
             long startTime = System.currentTimeMillis();
             while(game == false){
-                // newGame.printBoard(); 
+                newGame.printBoard(); 
                 // System.out.println();
-                bot1.pickRandom(newGame);
+                bot1.pickBlock(newGame);
                 game = newGame.gameOver();
                 if(game == true){
                     xWins++;
                     break;
                 }
-                bot2.pickCenWin(newGame);
+                bot2.pickRandom(newGame);
                 game = newGame.gameOver();
                 if(game == true){
                     oWins++;
@@ -43,7 +43,7 @@ public class game {
             long elapsed = endTime - startTime;
             totalTime += elapsed;
             // System.out.println();
-            // newGame.printBoard();
+            newGame.printBoard();
         }
         
         double avgTime = (double) totalTime / numGames; // num games is first number

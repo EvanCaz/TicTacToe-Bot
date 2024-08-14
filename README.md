@@ -23,10 +23,12 @@ In 1,000,000 games, a pickWinning bot against a pickCenter bot will win 65% of t
 In 1,000,000 games, a pickRnd bot against a pickWin bot will win 39% of the time and the win 52%. 
 
 Now there is a bot that first picks the center if avail, then tries to pick winning mvoe, then picks random, all out of 1,000,000 games.
-If a pickCenWin bot starts against a random, it will win 89% of the time, with the random winning 5% and the rest ties. 
-if a pickCenWin bot starts against a corner, it will win 88% and the corner winning slightly more than 5% and the rest ties.  
-If a pickRnd bot starst against a pickCenWin, it will win 27% of the time and the pickCenWin will win 65% and the rest ties.
+If a pickCenWin bot starts against a random, it will win 89% of the time, with the random winning 5% and the rest ties. These games take roughly 0.001242 miliseconds.
+if a pickCenWin bot starts against a corner, it will win 88% and the corner winning slightly more than 5% and the rest ties.  These games take roughly 0.001236 miliseconds.
+If a pickRnd bot starst against a pickCenWin, it will win 27% of the time and the pickCenWin will win 65% and the rest ties. These games take roughly 0.001474 miliseconds.
+If pickCenWin is played against it self, it will win 82% and the other bot 13% with the rest ties. These games take roughly 0.001637 miliseconds.
 
 
+Next would be to create a bot that First ties to pick center, then if it cannot picks a winning, then if there is winning, tries to block, and if there is no block, picks a corner, and if no corner, picks a random.
 
 All this data goes to show that starting first is crucial to wining. 

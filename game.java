@@ -15,7 +15,7 @@ public class game {
         // Bot bot2 = new Bot('o');
         boolean game;
         long totalTime = 0;
-        int numGames = 100;
+        int numGames = 1000000;
         System.out.println("Loading...");
         for(int i = 0; i < numGames; i++){
             Bot bot1 = new Bot('x');
@@ -26,13 +26,13 @@ public class game {
             while(game == false){
                 // newGame.printBoard(); 
                 // System.out.println();
-                bot1.pickWinning(newGame);
+                bot1.pickRandom(newGame);
                 game = newGame.gameOver();
                 if(game == true){
                     xWins++;
                     break;
                 }
-                bot2.pickRandom(newGame);
+                bot2.pickCenWin(newGame);
                 game = newGame.gameOver();
                 if(game == true){
                     oWins++;

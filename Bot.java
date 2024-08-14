@@ -86,5 +86,47 @@ public class Bot {
             pickRandom(newGame);
         }
     }
+
+    public void pickCenWin(game newGame){
+        if(newGame.availMoves.contains(4)){
+            // System.out.print(symbol + " picked the center. ");
+            newGame.validMoves(4);
+            newGame.updateBoard(4, symbol);
+            
+        } else {
+            pickWinning(newGame);
+        }
+    }
+
+    public void pickCenCornWin(game newGame) {
+        if(newGame.availMoves.contains(4)){
+            // System.out.print(symbol + " picked the center. ");
+            newGame.validMoves(4);
+            newGame.updateBoard(4, symbol);
+            
+        } else {
+            if(newGame.availMoves.contains(4) == false && firstPicked == false){ // if the center has been picked
+                ArrayList<Integer> availCorners = new ArrayList<>();
+                firstPicked = true;
+                if(newGame.availMoves.contains(0)) availCorners.add(0);
+                if(newGame.availMoves.contains(2)) availCorners.add(2);
+                if(newGame.availMoves.contains(6)) availCorners.add(6);
+                if(newGame.availMoves.contains(8)) availCorners.add(8);
+                // for(int i : availCorners){
+                //     System.out.print(i + ", ");
+                // }
+                if(availCorners.isEmpty() == false){
+                    Random rnd = new Random();
+                    int randomCorner = availCorners.get(rnd.nextInt(availCorners.size()));
+                    // int index = newGame.availMoves.get(randomCorner);
+                    newGame.validMoves(randomCorner);
+                    newGame.updateBoard(randomCorner, symbol);
+                    // System.out.print(symbol + " picked the corner " + randomCorner + ". ");
+                } 
+            } else {
+                pickWinning(newGame);    
+            }
+        }
+    }
 }   
         

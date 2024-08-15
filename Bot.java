@@ -27,7 +27,7 @@ public class Bot {
      */
     public void pickCenter(game newGame){ // if the center is open, pick it
         if(newGame.availMoves.contains(4)){
-            // System.out.print(symbol + " picked the center. ");
+            System.out.print(symbol + " picked the center. ");
             newGame.validMoves(4);
             newGame.updateBoard(4, symbol);
             
@@ -76,7 +76,7 @@ public class Bot {
                 moveFound = true;
                 newGame.validMoves(move);
                 newGame.updateBoard(move, symbol);
-                // System.out.print(symbol + " picked winning move " + move + ". ");
+                System.out.print(symbol + " picked winning move " + move + ". ");
                 break;
             } else {
             newGame.updateBoard(move, '-');
@@ -87,14 +87,23 @@ public class Bot {
         }
     }
 
-    public void pickCenWin(game newGame){
-        if(newGame.availMoves.contains(4)){
-            // System.out.print(symbol + " picked the center. ");
-            newGame.validMoves(4);
-            newGame.updateBoard(4, symbol);
-            
-        } else {
-            pickWinning(newGame);
+    public void pickWinCen(game newGame){
+        boolean moveFound = false;
+        for(int i = 0; i < newGame.availMoves.size(); i++){ 
+            int move = newGame.availMoves.get(i);
+            newGame.updateBoard(move, symbol);
+            if(newGame.gameOver() == true){
+                moveFound = true;
+                newGame.validMoves(move);
+                newGame.updateBoard(move, symbol);
+                System.out.print(symbol + " picked winning move " + move + ". ");
+                break;
+            } else {
+            newGame.updateBoard(move, '-');
+            }
+        }
+        if(moveFound == false){
+            pickCenter(newGame);
         }
     }
 

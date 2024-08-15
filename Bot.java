@@ -69,10 +69,10 @@ public class Bot {
      */
     public void pickWinning(game newGame){
         boolean moveFound = false;
-        for(int i = 0; i < newGame.availMoves.size(); i++){ 
+        for(int i = 1; i < newGame.availMoves.size(); i++){ 
             int move = newGame.availMoves.get(i);
             newGame.updateBoard(move, symbol);
-            if(newGame.gameOver() == true){
+            if(newGame.gameOver() == true){ // incorrectly counts a full board as winning for this bot
                 moveFound = true;
                 newGame.validMoves(move);
                 newGame.updateBoard(move, symbol);
@@ -89,10 +89,10 @@ public class Bot {
 
     public void pickWinCen(game newGame){
         boolean moveFound = false;
-        for(int i = 0; i < newGame.availMoves.size(); i++){ 
+        for(int i = 1; i < newGame.availMoves.size(); i++){ 
             int move = newGame.availMoves.get(i);
             newGame.updateBoard(move, symbol);
-            if(newGame.gameOver() == true){
+            if(newGame.gameOver() == true){ 
                 moveFound = true;
                 newGame.validMoves(move);
                 newGame.updateBoard(move, symbol);

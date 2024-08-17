@@ -68,9 +68,12 @@ public class Bot {
             newGame.board[move] = '-'; // undo the move
             if(curScore > bestScore){
                 bestScore = curScore;
-
+                topMove = move;
             }
         }
+        // newGame.validMoves(topMove);
+        // newGame.updateBoard(topMove, symbol);
+        System.out.println(topMove);
     }
     private int miniMax(game newGame, int depth, boolean isMax){
         // first check if it is a terminal state 

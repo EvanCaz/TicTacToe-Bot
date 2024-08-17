@@ -12,16 +12,16 @@ public class game {
 
     public static void main (String[] args) {
         // board[0] = 'x';
-        Bot bot1 = new Bot('x');
-        System.out.println("test");
+        Bot bot1 = new Bot('o');
         game newGame =  new game();
+        newGame.board[2] = 'x';
+        newGame.board[3] = 'x';
+        newGame.board[6] = 'x';
         newGame.board[0] = 'o';
-        newGame.board[4] = 'o';
+        newGame.board[7] = 'o';
+        newGame.board[8] = 'o';
         newGame.printBoard();
-        System.out.println(newGame.gameOver());
-        newGame.board[8] = 'x';
-        newGame.printBoard();
-        System.out.println(newGame.gameOver());
+        bot1.bestMove(newGame);
 
 
 

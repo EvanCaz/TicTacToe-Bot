@@ -22,13 +22,34 @@ In 1,000,000 games, a pick center bot against a picking winning bot will win 53%
 In 1,000,000 games, a pickWinning bot against a pickCenter bot will win 65% of the time and the center 20%.
 In 1,000,000 games, a pickRnd bot against a pickWin bot will win 39% of the time and the win 52%. 
 
-Now there is a bot that first picks the center if avail, then tries to pick winning mvoe, then picks random, all out of 1,000,000 games.
-If a pickCenWin bot starts against a random, it will win 89% of the time, with the random winning 5% and the rest ties. These games take roughly 0.001242 miliseconds.
-if a pickCenWin bot starts against a corner, it will win 88% and the corner winning slightly more than 5% and the rest ties.  These games take roughly 0.001236 miliseconds.
-If a pickRnd bot starst against a pickCenWin, it will win 27% of the time and the pickCenWin will win 65% and the rest ties. These games take roughly 0.001474 miliseconds.
-If pickCenWin is played against it self, it will win 82% and the other bot 13% with the rest ties. These games take roughly 0.001637 miliseconds.
+Now there is a bot that first picks a winning move if it exists, and then picks the center and then a random. data out of 1,000,000
+If a pickWinCen bot starts against a random, it will win 88.3903% of the time, with the random winning 7.0546% and the rest ties. These games take roughly 0.001456 miliseconds.
+if a pickWinCen bot starts against a corner, it will win 87.4614% and the corner winning slightly more than 8.2195% and the rest ties.  These games take roughly 0.001437 miliseconds.
+If a pickRnd bot starst against a pickWinCen, it will win 33.5069% of the time and the pickWinCen will win 658.2796% and the rest ties. These games take roughly 0.001556 miliseconds.
+If pickWinCen is played against it self, it will win 83.7287% and the other bot 12.7606% with the rest ties. These games take roughly 0.001842 miliseconds.
 
 
-Next would be to create a bot that First ties to pick center, then if it cannot picks a winning, then if there is winning, tries to block, and if there is no block, picks a corner, and if no corner, picks a random.
+Id like to create a minimax bot with and without alpha beta pruning to show the impact in game time. To do this, I have used the following resources:
+
+https://www.geeksforgeeks.org/finding-optimal-move-in-tic-tac-toe-using-minimax-algorithm-in-game-theory/
+https://en.wikipedia.org/wiki/Minimax
+https://www.neverstopbuilding.com/blog/minimax
+
+From my understanding, a score needs to be assigned to each outcome of each possible branch of moves. In this example, 5+ for a win, 5- for a loss, and 0 for a tied. These are called terminal states.
+The root of the tree is the current state of the board, which is prolly a parameter the method needs to accept.
+It is also assumed that the oppising player will play in the most optimal way.
+depth also needs to be considered, as the branch of moves that results in a win sooner should be priotized over a branch that results in a win later.
+This is an imporant part for alpha beta pruning I think, because this ensures a series of moves and their scores differntiate at different depths. 
+For example, if there were a game board such as this:
+| o | - | x |
+| x | - | - |
+| x | o | o |
+There are only three possible moves for the next turn, hence three branchs. on branch one, if it results in the following board:
+| o | - | x |
+| x | x | - |
+| x | o | o |
+Then we know that on any futher searching, we should not go past a depth of one as there could not possbile be a better move. 
+ 
+
 
 All this data goes to show that starting first is crucial to wining. 

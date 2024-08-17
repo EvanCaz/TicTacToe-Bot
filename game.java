@@ -1,7 +1,6 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
-import java.lang.Math;
 
 public class game {
     public final int spaces = 9;
@@ -13,86 +12,46 @@ public class game {
     
 
     public static void main (String[] args) {
-        game newGame =  new game();
-        Bot bot1 = new Bot('x');
-        Bot bot2 = new Bot('o');
-        while(newGame.gameOver() == 'n'){
-            newGame.printBoard();
-            try {
-                bot1.bestMove(newGame);
-            } catch (Exception e){
-                ties++;
+        int numGames = 10;
+        long totalTime = 0;
+        System.out.println("Loading...");
+        long bigTime = System.currentTimeMillis();
+        for(int i = 0; i < numGames; i++) {
+            game newGame =  new game();
+            Bot bot1 = new Bot('x');
+            Bot bot2 = new Bot('o');
+            long startTime = System.currentTimeMillis();
+            while(newGame.gameOver() == 'n'){
+                try {
+                    bot1.bestMove(newGame);
+                } catch (Exception e){
+                    ties++;
+                }
+                try {
+                    bot2.pickRandom(newGame);
+                } catch (Exception e){
+                    ties++;
+                }
             }
-            newGame.printBoard();
-            try {
-                bot2.bestMove(newGame);
-            } catch (Exception e){
-                ties++;
+            long endTime = System.currentTimeMillis();
+            long elapsed = endTime - startTime;
+            totalTime += elapsed;
+            if(newGame.gameOver() == 'x'){
+                xWins++;
+            } else if(newGame.gameOver() == 'o'){
+                oWins++;
             }
         }
-        newGame.printBoard();
+        long bigTime2 = System.currentTimeMillis();
+
+        double avgTime = (double) totalTime / numGames; // num games is first number
+        double totalSeconds = (double) (bigTime2 - bigTime) / 1000;
+        System.out.println();
+        System.out.println("There were " + xWins + " number of x wins and there were " + oWins + " o wins and " + ties + " ties.");
+        System.out.println("Average time of " + avgTime + " miliseconds with total time of " + totalSeconds + " Total seconds");
         
 
     }
-
-    // public void bestMove(){
-    //     int bestScore = Integer.MIN_VALUE;
-    //     int topMove = -1;
-    //     for(int i = 0; i < spaces; i++){
-    //             if(board[i] != 'x' && board[i] != 'o'){
-    //             board[i] = 'o';
-    //             int curScore = miniMax(board, 0, false);
-    //             board[i] = '-';
-
-    //             if (curScore > bestScore) {
-    //                 bestScore = curScore;
-    //                 topMove = i;
-    //             }
-    //         }
-    //     }
-    //     board[topMove] = 'o';
-
-    // }
-    // /*
-    //  * Errors trying to get this to run with availMoves and outside of class, so moved into here and kept very simple
-    //  */
-    // private int miniMax(char[] board, int depth, boolean isMax){ // breaks rules Alexander Katrompas taught me
-    //     char result = gameOver();
-    //     if(gameOver() == 'c' || gameOver() == 'x' || gameOver() == 'o'){
-    //         if (result == 'c') {
-    //             return 0; // Draw
-    //         } else if (result == 'o') {
-    //             return 10; // Bot wins
-    //         } else {
-    //             return -10; // Opponent wins
-    //         }
-    //     }
-    //     if(isMax){
-    //         int bestScore = Integer.MIN_VALUE;
-    //         for(int i = 0; i < spaces; i++){
-    //             if(board[i] != 'x' && board[i] != 'o'){
-    //                 board[i] = 'o';
-    //                 int curScore = miniMax(board, depth + 1, false);
-    //                 board[i] = '-';
-    //                 bestScore = Math.max(curScore, bestScore);
-    //             }
-    //         }
-    //         return bestScore;
-    //     } else {
-    //         int bestScore = Integer.MAX_VALUE;
-    //         for(int i = 0; i < spaces; i++){
-    //             if(board[i] != 'x' && board[i] != 'o'){
-    //                 board[i] = 'x';
-    //                 int curScore = miniMax(board, depth + 1, true);
-    //                 board[i] = '-';
-    //                 bestScore = Math.min(curScore, bestScore);
-    //             }
-    //         }
-    //         return bestScore;
-    //     }
-    // }
-
-    
 
     public game () {
         for(int i = 0; i < spaces; i++){  
@@ -137,6 +96,10 @@ public class game {
     public void validMoves(int move){
         availMoves.remove(Integer.valueOf(move));
     }
+     
+    public void updateBoard(int cord, char symbol){
+        board[cord] = symbol;
+    }
 
     
     public char gameOver() { 
@@ -162,8 +125,6 @@ public class game {
             } 
         }
         // System.out.println("TIED");
-        ties++;
-        xWins--;
         return 'c';
     } 
     private void getInput() {

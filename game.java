@@ -1,4 +1,4 @@
-import java.util.Scanner;
+// import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -127,26 +127,26 @@ public class game {
         // System.out.println("TIED");
         return 'c';
     } 
-    private void getInput() {
-        Scanner scnr = new Scanner(System.in);
-        int cord = -1;
-        boolean success = false;
-        System.out.println();
-        while(!success) {
-            System.out.print("Enter coordinate: ");
-            try {
-                cord = scnr.nextInt();
-                if((cord >= 0 && cord <= 8) && (board[cord] == '-')) {
-                    success = true;
-                } else {
-                    System.out.println("Enter a number within range and is not already used.");
-                }
-            } catch (Exception e) {
-                System.out.println("Enter a valid number.");
-                scnr.nextLine(); // Clear the invalid input
-            }
-        }
-        board[cord] = 'x';
-        validMoves(cord);
-    }
+    // private void getInput() {
+    //     Scanner scnr = new Scanner(System.in);
+    //     int cord = -1;
+    //     boolean success = false;
+    //     System.out.println();
+    //     while(!success) {
+    //         System.out.print("Enter coordinate: ");
+    //         try {
+    //             cord = scnr.nextInt();
+    //             if((cord >= 0 && cord <= 8) && (board[cord] == '-')) {
+    //                 success = true;
+    //             } else {
+    //                 System.out.println("Enter a number within range and is not already used.");
+    //             }
+    //         } catch (Exception e) {
+    //             System.out.println("Enter a valid number.");
+    //             scnr.nextLine(); // Clear the invalid input
+    //         }
+    //     }
+    //     board[cord] = 'x';
+    //     validMoves(cord);
+    // }
 }

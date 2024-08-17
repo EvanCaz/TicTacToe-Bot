@@ -62,7 +62,7 @@ public class game {
         }
     }
     
-    private void printBoard() { // testing and shi
+    public void printBoard() { // testing and shi
         System.out.println();
         int k = 0;
         for(int i = 0; i < spaces; i++){
